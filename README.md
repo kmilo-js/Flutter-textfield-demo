@@ -1,16 +1,37 @@
-# gaes_tres
+# Demo TextField con TextEditingController
 
-A new Flutter project.
+Una aplicación Flutter de ejemplo que demuestra cómo usar `TextEditingController` para leer, controlar y reaccionar al texto ingresado por el usuario en tiempo real.
 
-## Getting Started
+##  Funcionalidades TextEditingController
 
-This project is a starting point for a Flutter application.
+- Captura de texto con `TextEditingController`.
+- Actualización en tiempo real del texto mostrado.
+- Uso de `addListener` para detectar cambios.
+- Ejemplo de uso del texto en un diálogo emergente.
 
-A few resources to get you started if this is your first Flutter project:
+##  Componentes usados en la aplicacion
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- `TextEditingController`: Para controlar el campo de texto.
+- `TextField`: Campo de entrada para el usuario.
+- `addListener`: Detecta cambios en tiempo real.
+- `setState`: Actualiza la interfaz con el texto ingresado.
+- `ElevatedButton`: Dispara una acción que usa el texto.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+##  Ejemplo de uso
+
+1. El usuario ingresa su nombre en el campo de texto.
+2. La app muestra en tiempo real el texto ingresado.
+3. Al presionar el botón “Mostrar Saludo”, aparece un diálogo con el texto ingresado.
+
+##  Cómo ejecutar
+
+### Requisitos
+
+- Flutter instalado (versión 3.0 o superior).
+- SDK de Dart.
+
+## Pasos
+
+```bash
+flutter pub get descarga las dependecias para cuando usamos el repositorio 
+flutter run para ejecutar la aplicacion 
