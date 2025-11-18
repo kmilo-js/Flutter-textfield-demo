@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'reto_textfield.dart'; // importa a la pantalla del reto.
 
 void main() {
   runApp(MyApp());
@@ -82,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   builder: (BuildContext context) {
                     return AlertDialog(
                       title: Text("Saludo"),
-                      content: Text("¡Que más ${_controller.text} ,lo saluda el GAES 3!"),
+                      content: Text("¡Que más ${_controller.text}, lo saluda el GAES 3!"),
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.of(context).pop(),
@@ -94,6 +95,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
               child: Text("Mostrar Saludo"),
+            ),
+
+            SizedBox(height: 30),
+
+            // NUEVO: Botón para navegar al reto
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RetoTextField()),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 247, 247, 247),
+              ),
+              child: Text("Desarrollo del Reto."),
             ),
           ],
         ),
