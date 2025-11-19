@@ -1,30 +1,36 @@
 import 'package:flutter/material.dart';
-import 'reto_textfield.dart'; // importa a la pantalla del reto.
+import 'reto_textfield.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Demo TextField',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        useMaterial3: true, // Activar Material 3: más moderno
+        colorSchemeSeed: Colors.green, // Paleta automática
+        brightness: Brightness.light,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // 1. Crear el controlador
   final TextEditingController _controller = TextEditingController();
   String _textoIngresado = 'Nada aún...';
 
@@ -36,15 +42,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void dispose() {
-    // 2. Importante: Liberar recursos del controlador
     _controller.dispose();
     super.dispose();
   }
 
-  // Callback para manejar el cambio de texto
   void _onTextChanged() {
     setState(() {
-      // 3. Leer el texto actual del controlador
       _textoIngresado = _controller.text;
     });
   }
@@ -53,64 +56,110 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Demo TextField'),
+        centerTitle: true,
+        elevation: 2,
+        title: const Text(
+          'Demo TextField',
+          style: TextStyle(fontWeight: FontWeight.w600),
+        ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(22.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 4. TextField con sus propiedades
+            const Text(
+              "Ingresa tus datos",
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 25),
+
+            // === TEXTFIELD BONITO ===
             TextField(
-              controller: _controller, // Asignar el controlador
+              controller: _controller,
               decoration: InputDecoration(
-                labelText: 'Ingresa tu nombre',
+                labelText: 'Nombre',
                 hintText: 'Escribe aquí...',
-                border: OutlineInputBorder(),
+                filled: true,
+                fillColor: Colors.grey.shade100,
+                prefixIcon: const Icon(Icons.person),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
               ),
             ),
-            SizedBox(height: 20),
+
+            const SizedBox(height: 25),
+
+            // Texto moderno
             Text(
-              'Texto ingresado: $_textoIngresado', // Mostrar el texto en tiempo real
-              style: TextStyle(fontSize: 18),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Ejemplo de cómo usar el texto del controlador en otro lugar
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text("Saludo"),
-                      content: Text("¡Que más ${_controller.text}, lo saluda el GAES 3!"),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          child: Text("Cerrar"),
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-              child: Text("Mostrar Saludo"),
-            ),
-
-            SizedBox(height: 30),
-
-            // NUEVO: Botón para navegar al reto
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RetoTextField()),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 247, 247, 247),
+              'Texto ingresado:',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey.shade700,
               ),
-              child: Text("Desarrollo del Reto."),
+            ),
+
+            const SizedBox(height: 6),
+
+            Container(
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                color: Colors.green.shade50,
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Text(
+                _textoIngresado,
+                style: const TextStyle(fontSize: 18),
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            // Botón elegante
+            SizedBox(
+              width: double.infinity,
+              child: FilledButton.icon(
+                icon: const Icon(Icons.message),
+                label: const Text("Mostrar Saludo"),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text("Saludo"),
+                        content: Text("¡Qué más ${_controller.text}, lo saluda el GAES 3!"),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: const Text("Cerrar"),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            // Botón secundario
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton(
+                child: const Text("Desarrollo del Reto"),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => RetoTextField()),
+                  );
+                },
+              ),
             ),
           ],
         ),
@@ -118,3 +167,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
