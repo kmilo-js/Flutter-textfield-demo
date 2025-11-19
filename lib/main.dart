@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'reto_textfield.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MyApp()); // Punto de entrada: inicia la app.
 }
 
 class MyApp extends StatelessWidget {
@@ -12,13 +12,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Demo TextField',
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false, // Oculta la cinta de debug.
       theme: ThemeData(
-        useMaterial3: true, // Activar Material 3: más moderno
-        colorSchemeSeed: Colors.green, // Paleta automática
-        brightness: Brightness.light,
+        useMaterial3: true, // Activa Material 3.
+        colorSchemeSeed: Colors.green, // Genera una paleta moderna.
       ),
-      home: const MyHomePage(),
+      home: const MyHomePage(), // Pantalla principal.
     );
   }
 }
@@ -31,24 +30,24 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final TextEditingController _controller = TextEditingController();
-  String _textoIngresado = 'Nada aún...';
+  final TextEditingController _controller = TextEditingController(); // Controla el TextField.
+  String _textoIngresado = 'Nada aún...'; // Guarda lo que escribe el usuario.
 
   @override
   void initState() {
     super.initState();
-    _controller.addListener(_onTextChanged);
+    _controller.addListener(_onTextChanged); // Escucha cambios en tiempo real.
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller.dispose(); // Libera el controlador.
     super.dispose();
   }
 
   void _onTextChanged() {
     setState(() {
-      _textoIngresado = _controller.text;
+      _textoIngresado = _controller.text; // Actualiza el texto escrito.
     });
   }
 
@@ -56,36 +55,30 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text('Demo TextField'),
         centerTitle: true,
-        elevation: 2,
-        title: const Text(
-          'Demo TextField',
-          style: TextStyle(fontWeight: FontWeight.w600),
-        ),
       ),
+
       body: Padding(
         padding: const EdgeInsets.all(22.0),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
               "Ingresa tus datos",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
 
             const SizedBox(height: 25),
 
-            // === TEXTFIELD BONITO ===
+            // TextField con estilo moderno
             TextField(
               controller: _controller,
               decoration: InputDecoration(
                 labelText: 'Nombre',
                 hintText: 'Escribe aquí...',
                 filled: true,
-                fillColor: Colors.grey.shade100,
                 prefixIcon: const Icon(Icons.person),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
@@ -95,15 +88,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
             const SizedBox(height: 25),
 
-            // Texto moderno
-            Text(
-              'Texto ingresado:',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey.shade700,
-              ),
-            ),
-
+            // Muestra el texto ingresado debajo
+            Text('Texto ingresado:',
+                style: TextStyle(fontSize: 16, color: Colors.grey.shade700)),
             const SizedBox(height: 6),
 
             Container(
@@ -113,14 +100,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Text(
-                _textoIngresado,
+                _textoIngresado, // Se actualiza automáticamente
                 style: const TextStyle(fontSize: 18),
               ),
             ),
 
             const SizedBox(height: 30),
 
-            // Botón elegante
+            // Botón que muestra un alerta con el nombre
             SizedBox(
               width: double.infinity,
               child: FilledButton.icon(
@@ -129,18 +116,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text("Saludo"),
-                        content: Text("¡Qué más ${_controller.text}, lo saluda el GAES 3!"),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.of(context).pop(),
-                            child: const Text("Cerrar"),
-                          ),
-                        ],
-                      );
-                    },
+                    builder: (_) => AlertDialog(
+                      title: const Text("Saludo"),
+                      content: Text("¡Qué más ${_controller.text}, lo saluda el GAES 3!"),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text("Cerrar"),
+                        ),
+                      ],
+                    ),
                   );
                 },
               ),
@@ -148,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
             const SizedBox(height: 20),
 
-            // Botón secundario
+            // Navega hacia la pantalla del reto
             SizedBox(
               width: double.infinity,
               child: OutlinedButton(
@@ -156,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => RetoTextField()),
+                    MaterialPageRoute(builder: (_) => RetoTextField()),
                   );
                 },
               ),
@@ -167,4 +152,5 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
 
